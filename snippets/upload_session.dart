@@ -13,8 +13,6 @@ void main() async {
       client: client,
       logger: Logger(
         filter: ProductionFilter(),
-        // no I don't like fun, thanks for asking
-        // TODO make an even less fun one
         printer: PrettyPrinter(printEmojis: false),
       ));
 
@@ -24,8 +22,7 @@ void main() async {
 
   meal.logger.i("Upload session is ready");
 
-  var byteses =
-      messages.map(utf8.encode).map((l) => Uint8List.fromList(l)).toList();
+  var byteses = messages.map(utf8.encode).toList();
   var fileSize = byteses.fold(0, (l, m) => l + m.length);
 
   var startingOffset = 0;

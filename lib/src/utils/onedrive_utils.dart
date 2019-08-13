@@ -30,7 +30,7 @@ Future<String> createUploadSession(ComboMeal meal, String filePath,
 const maxChunkSize = 62914560; // greatest multiple of 320 KiB less than 60 MiB
 
 /// Returns the start of the next expected range
-Future<int> uploadBytes(ComboMeal meal, String uploadUrl, Uint8List bytes,
+Future<int> uploadBytes(ComboMeal meal, String uploadUrl, List<int> bytes,
     {@required int startingOffset, @required int fileSize}) async {
   meal.logger.d(bytes.length);
   var resp = await meal.client.put(uploadUrl,
