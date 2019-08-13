@@ -51,4 +51,7 @@ void main() async {
         meal, uploadSession, await rafile.read(maxChunkSize),
         fileSize: fileSize, startingOffset: startingOffset);
   }
+
+  client.close();
+  await rafile.close();
 }
