@@ -15,7 +15,7 @@ func main() {
 	defer f.Close()
 
 	messageBytes := []byte(message)
-	writeNum := 6 * 1024 * 1024
+	writeNum := 3 * 1024 * 1024
 
 	for i := 0; i < writeNum; i++ {
 		_, err := f.Write(messageBytes)

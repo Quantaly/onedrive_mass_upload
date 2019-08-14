@@ -8,12 +8,12 @@ void main() async {
   var bigfile = File("snippets/bigfile.txt");
   if (!await bigfile.exists()) {
     print("creating bigfile.txt...");
-    print("This is pretty slow from Dart, generate_bigfile.go was about 6x "
+    print("This is pretty slow from Dart, generate_bigfile.go was upwards 6-10x "
         "faster on my machine if you have Go installed to compile it");
     var sink = bigfile.openWrite();
     var messageBytes =
         utf8.encode("teh raine inne Spaine falles mainely inne your mom lol\n");
-    for (var i = 0; i < 6 * 1024 * 1024; i++) {
+    for (var i = 0; i < 3 * 1024 * 1024; i++) {
       sink.add(messageBytes);
     }
     await sink.flush();
