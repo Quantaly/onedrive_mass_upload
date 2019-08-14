@@ -1,9 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:oauth2/oauth2.dart';
 
+final Future<String> appId = () async {
+  var json = await File("oauth.json").readAsString();
+  return jsonDecode(json)["app_id"] as String;
+}();
+
 /// plz only use *before* spawning isolates
-Future<Client> authorize(String appId) {
+Future<Client> authorizeWithTerminal(String appId) {
   const urlPrefix = "https://login.microsoftonline.com/common/oauth2/v2.0";
   var granter = AuthorizationCodeGrant(
     /* identifier: */ appId,

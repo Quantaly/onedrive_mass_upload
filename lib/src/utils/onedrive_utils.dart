@@ -23,7 +23,7 @@ Future<String> createUploadSession(ComboMeal meal, String filePath,
           "@microsoft.graph.conflictBehavior": conflictBehavior,
         },
       }));
-  meal.logger.d(formatResponse(resp));
+  meal.logger.v(formatResponse(resp));
   return jsonDecode(resp.body)["uploadUrl"];
 }
 
@@ -32,7 +32,7 @@ const maxChunkSize = 62914560; // greatest multiple of 320 KiB less than 60 MiB
 /// Returns the start of the next expected range
 Future<int> uploadBytes(ComboMeal meal, String uploadUrl, List<int> bytes,
     {@required int startingOffset, @required int fileSize}) async {
-  meal.logger.d(bytes.length);
+  meal.logger.v(bytes.length);
   var resp = await meal.client.put(uploadUrl,
       headers: {
         //"Content-Length": "${bytes.length}",
@@ -40,7 +40,7 @@ Future<int> uploadBytes(ComboMeal meal, String uploadUrl, List<int> bytes,
             "${startingOffset + bytes.length - 1}/$fileSize",
       },
       body: bytes);
-  meal.logger.d(formatResponse(resp));
+  meal.logger.v(formatResponse(resp));
   if (resp.statusCode == 202) {
     return int.parse((jsonDecode(resp.body)["nextExpectedRanges"][0] as String)
         .split("-")[0]);

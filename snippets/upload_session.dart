@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:onedrive_mass_upload/server.dart';
+import 'package:onedrive_mass_upload/bin.dart';
 import 'package:logger/logger.dart';
 
 void main() async {
   var oauthSettings = jsonDecode(await File("oauth.json").readAsString());
 
-  var client = await authorize(oauthSettings["app_id"]);
+  var client = await authorizeWithTerminal(oauthSettings["app_id"]);
   final meal = ComboMeal(
       client: client,
       logger: Logger(
