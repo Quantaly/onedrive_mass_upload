@@ -19,7 +19,7 @@ Future<Client> authorizeWithTerminal(String appId) {
 
   print(granter.getAuthorizationUrl(
       Uri.parse("https://login.microsoftonline.com/common/oauth2/nativeclient"),
-      scopes: ["User.Read", "Files.ReadWrite"]));
+      scopes: ["User.Read", "Files.ReadWrite", "offline_access"]));
 
   stdout.write("plz paste the code> ");
   return granter.handleAuthorizationCode(stdin.readLineSync());

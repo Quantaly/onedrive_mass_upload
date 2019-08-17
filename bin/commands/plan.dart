@@ -33,8 +33,6 @@ class PlanCommand extends Command<int> {
       );
   }
 
-  static final leadingSlash = RegExp("^/");
-
   @override
   Future<int> run() async {
     var localPath = argResults["local-path"],
@@ -53,12 +51,9 @@ class PlanCommand extends Command<int> {
       state
         ..localDirectory = p.absolute(localPath)
         ..cloudDirectoryId = await () async {
-          var resp = await client.get(
-              //ignore: prefer_interpolation_to_compose_strings
-              "https://graph.microsoft.com/v1.0/me/drive/root" +
-                  (cloudPath == "/"
-                      ? "/"
-                      : (":/" + cloudPath.replaceFirst(leadingSlash, ""))));
+          var resp =
+              await client.get("https://graph.microsoft.com/v1.0/me/drive/root"
+                  "${urlFormatDrivePath(cloudPath)}");
           //print(formatResponse(resp));
           if (resp.statusCode == 404) {
             print("Please create the cloud directory first.");
@@ -74,7 +69,7 @@ class PlanCommand extends Command<int> {
         ..filesToUpload = await Directory(localPath)
             .list(recursive: true)
             .where((fse) => fse is File)
-            .map((f) => f.path)
+            .map((f) => p.relative(f.path, from: localPath))
             .toList()
         ..uploaded = []
         ..credentials = client.credentials;

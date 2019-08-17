@@ -13,7 +13,7 @@ Future<void> main() async {
     var sink = bigfile.openWrite();
     var messageBytes =
         utf8.encode("teh raine inne Spaine falles mainely inne your mom lol\n");
-    for (var i = 0; i < 3 * 1024 * 1024; i++) {
+    for (var i = 0; i < 1024 * 1024; i++) {
       sink.add(messageBytes);
     }
     await sink.flush();
@@ -29,11 +29,12 @@ Future<void> main() async {
         filter: ProductionFilter(),
         printer: PrettyPrinter(printEmojis: false),
       ));
-  Logger.level = Level.debug;
+  Logger.level = Level.verbose;
 
   meal.logger.i("Starting");
 
-  var uploadSession = await createUploadSession(meal, "aaaaa/bigfile2.txt");
+  var uploadSession =
+      await createUploadSession(meal, "aaaaa/bbbbb/ccccc/bigfile.txt");
 
   meal.logger.i("Upload session is ready");
 

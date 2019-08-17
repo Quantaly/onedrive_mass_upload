@@ -11,10 +11,16 @@ Future<String> getDriveRootId(ComboMeal meal) async {
   return jsonDecode(resp.body)["id"];
 }
 
+final _leadingSlash = RegExp("^/");
+String urlFormatDrivePath(String path) {
+  return path == "/" ? "/" : (":/${path.replaceFirst(_leadingSlash, "")}:/");
+}
+
 Future<String> createUploadSession(ComboMeal meal, String filePath,
-    {String conflictBehavior = "replace"}) async {
+    {String rootId, String conflictBehavior = "replace"}) async {
+  rootId ??= await getDriveRootId(meal);
   var resp = await meal.client.post(
-      "https://graph.microsoft.com/v1.0/me/drive/root:/$filePath:"
+      "https://graph.microsoft.com/v1.0/me/drive/items/$rootId:/$filePath:"
       "/createUploadSession",
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({
@@ -41,9 +47,12 @@ Future<int> uploadBytes(ComboMeal meal, String uploadUrl, List<int> bytes,
       body: bytes);
   meal.logger.v(formatResponse(resp));
   if (resp.statusCode == 202) {
-    return int.parse((jsonDecode(resp.body)["nextExpectedRanges"][0] as String)
-        .split("-")[0]);
+    return parseNextExpectedRanges(
+        jsonDecode(resp.body)["nextExpectedRanges"].cast<String>());
   } else {
     return -1;
   }
 }
+
+int parseNextExpectedRanges(List<String> nextExpectedRanges) =>
+    int.parse(nextExpectedRanges[0].split("-")[0]);
