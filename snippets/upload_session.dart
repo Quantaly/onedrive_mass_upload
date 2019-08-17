@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:onedrive_mass_upload/bin.dart';
 import 'package:logger/logger.dart';
 
-void main() async {
+Future<void> main() async {
   var oauthSettings = jsonDecode(await File("oauth.json").readAsString());
 
   var client = await authorizeWithTerminal(oauthSettings["app_id"]);

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:logger/logger.dart';
 import 'package:onedrive_mass_upload/bin.dart';
 
-void main() async {
+Future<void> main() async {
   var bigfile = File("snippets/bigfile.txt");
   if (!await bigfile.exists()) {
     print("creating bigfile.txt...");

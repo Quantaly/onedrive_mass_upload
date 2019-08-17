@@ -7,7 +7,9 @@ import 'package:onedrive_mass_upload/bin.dart';
 
 // TODO include/exclude, autostart
 class PlanCommand extends Command<int> {
+  @override
   final name = "plan";
+  @override
   final description = "Create an initial state to be executed.";
 
   PlanCommand() {
@@ -33,6 +35,7 @@ class PlanCommand extends Command<int> {
 
   static final leadingSlash = RegExp("^/");
 
+  @override
   Future<int> run() async {
     var localPath = argResults["local-path"],
         cloudPath = argResults["cloud-path"],
@@ -51,6 +54,7 @@ class PlanCommand extends Command<int> {
         ..localDirectory = p.absolute(localPath)
         ..cloudDirectoryId = await () async {
           var resp = await client.get(
+              //ignore: prefer_interpolation_to_compose_strings
               "https://graph.microsoft.com/v1.0/me/drive/root" +
                   (cloudPath == "/"
                       ? "/"

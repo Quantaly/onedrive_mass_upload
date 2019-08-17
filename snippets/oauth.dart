@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:oauth2/oauth2.dart' as o;
 
-void main(List<String> arguments) async {
+Future<void> main(List<String> arguments) async {
   var oauthSettings = jsonDecode(await File("oauth.json").readAsString());
 
   const urlPrefix = "https://login.microsoftonline.com/common/oauth2/v2.0";
