@@ -1,8 +1,8 @@
 name: onedrive_mass_upload
-description: A sample command-line application.
-# version: 1.0.0
-# homepage: https://www.example.com
-# author: Kai Page <kaibug@gmail.com>
+description: A simple utility for uploading lots of files to Microsoft OneDrive.
+version: 1.0.0
+homepage: https://github.com/Quantaly/onedrive_mass_upload
+author: Kai Page <kaibug@gmail.com>
 
 environment:
   sdk: '>=2.4.0 <3.0.0'
