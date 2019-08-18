@@ -4,7 +4,7 @@ Astute observers may realize that this is nigh-on-pointless, since anyone with a
 
 But I needed to back up some files off a Raspberry Pi NAS and felt like doing it the fancy way.
 
-Update: It worked for a few hours, then had a conniption fit. Ended up going and grabbing the hard drive to drag and drop with anyway. 0/10, do not recommend.
+Update: It worked for a few hours, then had a conniption fit. There was apparently an "unhandled exception," though it told me nothing about said exception, and upload_state.json was left completely empty for some reason. Ended up going and grabbing the hard drive to drag and drop with anyway. 0/10, do not recommend.
 
 ## Usage
 First (after `pub get`), create an upload_state.json file by running
